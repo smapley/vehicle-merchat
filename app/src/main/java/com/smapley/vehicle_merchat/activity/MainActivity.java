@@ -23,9 +23,6 @@ import com.smapley.base.utils.ThreadSleep;
 import com.smapley.vehicle_merchat.R;
 import com.smapley.vehicle_merchat.adapter.MainAdapter;
 import com.smapley.vehicle_merchat.utils.Constant;
-import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushConfig;
-import com.tencent.android.tpush.XGPushManager;
 
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -83,7 +80,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         initSound();
-        initXG();
 
         setTitle("车速通");
         showRightText("退出");
@@ -214,19 +210,7 @@ public class MainActivity extends BaseActivity {
         unregisterReceiver(receiver);
     }
 
-    private void initXG() {
-        Context context = getApplicationContext();
-        XGPushManager.registerPush(context, new XGIOperateCallback() {
-            @Override
-            public void onSuccess(final Object o, int i) {
-            }
 
-            @Override
-            public void onFail(Object o, int i, String s) {
-                Toast.makeText(context, "系统注册失败！", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     public void getData() {
         RequestParams params = new RequestParams(Constant.URL_SGETMINGXI);

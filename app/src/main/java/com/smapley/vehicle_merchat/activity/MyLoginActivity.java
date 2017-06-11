@@ -1,9 +1,7 @@
 package com.smapley.vehicle_merchat.activity;
 
-import android.content.Context;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,9 +14,6 @@ import com.smapley.base.utils.SP;
 import com.smapley.base.widget.LinearlayoutView;
 import com.smapley.vehicle_merchat.R;
 import com.smapley.vehicle_merchat.utils.Constant;
-import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushConfig;
-import com.tencent.android.tpush.XGPushManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.xutils.http.RequestParams;
@@ -43,10 +38,8 @@ public class MyLoginActivity extends BaseActivity implements LinearlayoutView.Ke
     private EditText phoneET;
 
     private String phone;
-    private String token;
-
-    private boolean isRegister = false;
     private String deviceId;
+    private String token;
 
     @Override
     public void initArgument() {
@@ -56,7 +49,6 @@ public class MyLoginActivity extends BaseActivity implements LinearlayoutView.Ke
     @Override
     public void initView() {
         isExit = true;
-        initXG();
         layout.setKeyBoardStateListener(this);
 
     }
@@ -97,11 +89,11 @@ public class MyLoginActivity extends BaseActivity implements LinearlayoutView.Ke
     }
 
     private boolean checkForm() {
+        token = (String) SP.getSet("token");
         deviceId = Constant.getDeviceId(this);
         phone = phoneET.getText().toString();
-        if (!isRegister) {
+        if(StringUtils.isEmpty(token)){
             Toast.makeText(this, "系统尚未注册成功，请稍后再试！", Toast.LENGTH_SHORT).show();
-            initXG();
             return false;
         }
         if (StringUtils.isEmpty(deviceId)) {
@@ -117,22 +109,6 @@ public class MyLoginActivity extends BaseActivity implements LinearlayoutView.Ke
     }
 
 
-    private void initXG() {
-        Context context = getApplicationContext();
-        XGPushManager.registerPush(context, new XGIOperateCallback() {
-            @Override
-            public void onSuccess(final Object o, int i) {
-                token = o.toString();
-                isRegister = true;
-            }
-
-            @Override
-            public void onFail(Object o, int i, String s) {
-                isRegister = false;
-                Toast.makeText(context, "系统注册失败！", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public void stateChange(int state) {

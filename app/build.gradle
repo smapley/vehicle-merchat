@@ -22,6 +22,11 @@ android {
         jackOptions {
             enabled true
         }
+        //阿里推送
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'x86'
+        }
     }
     buildTypes {
         release {
@@ -45,7 +50,8 @@ android {
     allprojects {
         repositories {
             jcenter()
-            maven { url "https://jitpack.io" }
+            maven { url "https://jitpack.io"}
+            maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/'}
         }
     }
 }
@@ -58,4 +64,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     testCompile 'junit:junit:4.12'
     compile project(':base')
+    //阿里推送
+    compile 'com.aliyun.ams:alicloud-android-push:3.0.7@aar'
+    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
 }
