@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main{
+            jniLibs.srcDirs=['libs']}
+    }
+    //jdk版本
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    //图片裁剪相关注释
+    allprojects {
+        repositories {
+            jcenter()
+            maven { url "https://jitpack.io" }
+        }
+    }
+
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'org.xutils:xutils:3.5.0'
+    //lang3
+    compile 'org.apache.commons:commons-lang3:3.5'
+    //RxPermissions
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    //RxJava2
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
+    //BLE
+    compile 'com.inuker.bluetooth:library:1.4.0'
+    //微信支付
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
+    //图片选择
+    compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
+    //图片裁剪
+    compile 'com.github.yalantis:ucrop:2.2.1'
+    //高德定位
+    compile 'com.amap.api:location:latest.integration'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/alipaySDK-20150610.jar')
+}
